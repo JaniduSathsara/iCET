@@ -1,537 +1,407 @@
 import java.util.*;
 class NumberConverter{
-
-    public final static void clearConsole() { 
-        try {
-        final String os = System.getProperty("os.name"); 
-        if (os.contains("Windows")) {
-       new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } else {
-       System.out.print("\033[H\033[2J"); 
-       System.out.flush();
+    public static String decimalToBinary(int dec){
+        if (dec==0) return "0";
+        String bin="";
+        while (dec>0) {
+            bin=(dec%2)+bin;
+            dec/=2;
         }
-        } catch (final Exception e) {
-        e.printStackTrace();
-        // Handle any exceptions.
+        return bin;
+    }
+
+    public static String decimalToOctal(int dec){
+        if (dec==0) return "0";
+        String octal ="";
+        while (dec>0){
+            octal=(dec%8)+octal;
+            dec/=8;
         }
-       }
-    public static void main(String[] args) {
+        return octal;
+    }
 
-        Scanner input=new Scanner(System.in);
+    public static String decimalToHex(int dec){
+        if (dec==0) return "0";
+        char[] hexaChar={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+        String hexa="";
+        while (dec>0){
+            hexa=hexaChar[dec%16]+hexa;
+            dec/=16;
+        }
+        return hexa;
+    }
 
-        L1:do{
-            System.out.println("\n\n\n\t\t\t\t\t __   ______             __");                
-            System.out.println("\t\t\t\t\t|  \\ /      \\           |  \\");                
-            System.out.println("\t\t\t\t\t \\$$|  $$$$$$\\  ______  | $$  _______");      
-            System.out.println("\t\t\t\t\t|  \\| $$   \\$$ |      \\ | $$ /       \\");      
-            System.out.println("\t\t\t\t\t| $$| $$        \\$$$$$$\\| $$|  $$$$$$$");      
-            System.out.println("\t\t\t\t\t| $$| $$   __  /      $$| $$| $$");            
-            System.out.println("\t\t\t\t\t| $$| $$__/  \\|  $$$$$$$| $$| $$_____");       
-            System.out.println("\t\t\t\t\t| $$ \\$$    $$ \\$$    $$| $$ \\$$     \\");      
-            System.out.println("\t\t\t\t\t \\$$  \\$$$$$$   \\$$$$$$$ \\$$  \\$$$$$$$");      
-                                                        
-            
-            System.out.println("\n   _   _                       _                        _____                                         _");                 
-            System.out.println("  | \\ | |                     | |                      / ____|                                       | |");                
-            System.out.println("  |  \\| |  _   _   _ __ ___   | |__     ___   _ __    | |        ___    _ __   __   __   ___   _ __  | |_    ___   _ __"); 
-            System.out.println("  | . ` | | | | | | '_ ` _ \\  | '_ \\   / _ \\ | '__|   | |       / _ \\  | '_ \\  \\ \\ / /  / _ \\ | '__| | __|  / _ \\ | '__|");
-            System.out.println("  | |\\  | | |_| | | | | | | | | |_) | |  __/ | |      | |____  | (_) | | | | |  \\ V /  |  __/ | |    | |_  |  __/ | |");   
-            System.out.println("  |_| \\_|  \\__,_| |_| |_| |_| |_.__/   \\___| |_|       \\_____|  \\___/  |_| |_|   \\_/    \\___| |_|     \\__|  \\___| |_|");   
-            System.out.println("\n===========================================================================================================================");                                                                                                                            
-            
-            System.out.println("\n\n\n\t[01] Decimal Converter");
-            System.out.println("\n\t[02] Binary Converter");
-            System.out.println("\n\t[03] Octal Converter");
-            System.out.println("\n\t[04] Hexadecimal Converter");
-            System.out.println("\n\t[05] Roman Number Converter");
+    public static int binaryToDecimal(String binary){
+        int dec=0;
+        for (int i=0;i<binary.length();i++){
+            dec=dec*2+(binary.charAt(i)-'0');
+        }
+        return dec;
+    }
 
-            System.out.print("\n\nEnter Option -> ");
-            int option=input.nextInt();
+    public static int octalToDecimal(String octal){
+        int dec=0;
+        for (int i = 0;i<octal.length();i++){
+            dec=dec*8+(octal.charAt(i)-'0');
+        }
+        return dec;
+    }
 
-            switch(option){
-                case 1: //Decimal Converter
-                        L2:do{
-                            clearConsole();
-                            System.out.println("+-------------------------------------------+");
-                            System.out.println("|            Decimal Converter              |");
-                            System.out.println("+-------------------------------------------+");
-                            System.out.print("\n\nEnter an Decimal number: ");
-                            int decimal = input.nextInt();
-                            int temp=decimal;
-                            if(decimal>=0){
-                                do{
-                                    int num=temp%10;
-                                    temp/=10;
-                                    if(num>9){
-                                        System.out.println("\tInvalid input...");
-                                        System.out.print("\nDo you want to input number again (Y/N) -> ");
-                                        char c = input.next().charAt(0);
+    public static int hexToDecimal(String hex){
+        hex=hex.toUpperCase();
+        int dec=0;
+        for (int i=0;i<hex.length();i++){
+            char ch = hex.charAt(i);
+            int digitValue=(ch>='0'&& ch<='9')?(ch-'0'):(ch-'A'+10);
+            dec=dec*16+digitValue;
+        }
+        return dec;
+    }
 
-                                        if (c == 'Y' || c == 'y') {
-                                            clearConsole();
-                                            continue L2;
-                                        }else if (c == 'N' || c == 'n'){
-                                            clearConsole();
-                                            continue L1;
-                                        }
-                                    }
-                                }while(temp>0);
-                            }else{
-                                System.out.println("\tInvalid input...");
-                                System.out.print("\nDo you want to input number again (Y/N) -> ");
-                                char c = input.next().charAt(0);
+    public static String decimalToRoman(int num){
+        String roman="";
+        while (num>=1000) { roman += "M";  num -= 1000; }
+        while (num>=900)  { roman += "CM"; num -= 900;  }
+        while (num>=500)  { roman += "D";  num -= 500;  }
+        while (num>=400)  { roman += "CD"; num -= 400;  }
+        while (num>=100)  { roman += "C";  num -= 100;  }
+        while (num>=90)   { roman += "XC"; num -= 90;   }
+        while (num>=50)   { roman += "L";  num -= 50;   }
+        while (num>=40)   { roman += "XL"; num -= 40;   }
+        while (num>=10)   { roman += "X";  num -= 10;   }
+        while (num>=9)    { roman += "IX"; num -= 9;    }
+        while (num>=5)    { roman += "V";  num -= 5;    }
+        while (num>=4)    { roman += "IV"; num -= 4;    }
+        while (num>=1)    { roman += "I";  num -= 1;    }
+        return roman;
+    }
 
-                                if (c == 'Y' || c == 'y') {
-                                    clearConsole();
-                                    continue L2;
-                                }else if (c == 'N' || c == 'n'){
-                                    clearConsole();
-                                    continue L1;
-                                }
-                            }
+    public static int romanToDecimal(String romanNum) {
+        int decimal=0;
+        for (int i=0;i<romanNum.length();i++) {
+            int currentValue = getRomanValue(romanNum.charAt(i));
+            int nextValue = 0;
+            if (i + 1<romanNum.length()){
+                nextValue = getRomanValue(romanNum.charAt(i + 1));
+            }
+            if (currentValue<nextValue){
+                decimal -=currentValue;
+            } else {
+                decimal +=currentValue;
+            }
+        }
+        return decimal;
+    }
+    public static int getRomanValue(char c) {
+        switch (c) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default:  return 0;
+        }
+	}
 
-                            //-----------Decimal to Binary----------
-                            int binary = 0;
-                            int base = 1;
-                            int temp2=decimal;
-                            while(temp2 > 0){
-                                binary = binary + (temp2%2)*base;
-                                temp2 = temp2/2;
-                                base = base*10;
-                            }
-                            System.out.println("\n\tBinary number: "+binary);
-                            //-----------Decimal to Octal----------
-                            int octal = 0;
-                            int base1 = 1;
-                            int temp3=decimal;
-                            while(temp3 > 0){
-                                octal = octal + (temp3%8)*base1;
-                                temp3 = temp3/8;
-                                base1 = base1*10;
-                            }
-                            System.out.println("\tOctal number: "+octal);
-                            //-----------Decimal to Hexa Decimal----------
-                            int temp4=decimal;
-                            String hex = "";
-                            while(temp4 > 0){
-                                int rem = temp4%16;
-                                if(rem<10){
-                                    hex = rem + hex;
-                                }
-                                else{
-                                    hex = (char)(rem+55) + hex;
-                                }
-                                temp4 = temp4/16;
-                            }
-                            System.out.println("\tHexadecimal number: "+hex);
-                            //----back to homepage-----
-                            System.out.print("\n\nDo you want to go to homepage (Y/N)-> ");
-                            char c = input.next().charAt(0);
+    public static boolean isValidDecimal(String s){
+        if (s == null || s.isEmpty()) return false;
+        for (int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if (c<'0'||c>'9') return false;
+        }
+        return true;
+    }
 
-                            if (c == 'Y' || c == 'y') {
-                                clearConsole();
-                                continue L1;
-                            }else {
-                                break L1;
-                            }  
-                            
-                        }while(true);
+    public static boolean isValidBinary(String s){
+        if (s == null||s.isEmpty()) return false;
+        for (int i=0;i<s.length();i++) {
+            char c = s.charAt(i);
+            if (c != '0' && c != '1') return false;
+        }
+        return true;
+    }
 
-                        
-                case 2: //Binary Converter
-                        L3:do{
-                            clearConsole();
-                            System.out.println("+-------------------------------------------+");
-                            System.out.println("|            Binary Converter               |");
-                            System.out.println("+-------------------------------------------+");
-                            System.out.print("\n\nEnter an Binary number: ");
-                            int binaryNumber = input.nextInt();
-                            int temp=binaryNumber;
-                            if(binaryNumber>=0){
-                                do{
-                                    int num=temp%10;
-                                    temp/=10;
-                                    if(num>1){
-                                        System.out.println("\tInvalid input...");
-                                        System.out.print("\nDo you want to input number again (Y/N) -> ");
-                                        char c = input.next().charAt(0);
+    public static boolean isValidOctal(String s){
+        if (s == null || s.isEmpty()) return false;
+        for (int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if (c < '0' || c > '7') return false;
+        }
+        return true;
+    }
 
-                                        if (c == 'Y' || c == 'y') {
-                                            clearConsole();
-                                            continue L3;
-                                        }else if (c == 'N' || c == 'n'){
-                                            clearConsole();
-                                            continue L1;
-                                        }
-                                    }
-                                }while(temp>0);
-                            }else{
-                                System.out.println("\tInvalid input...");
-                                System.out.print("\nDo you want to input number again (Y/N) -> ");
-                                char c = input.next().charAt(0);
+    public static boolean isValidHex(String s){
+        if (s == null || s.isEmpty()) return false;
+        for (int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-                                if (c == 'Y' || c == 'y') {
-                                    clearConsole();
-                                    continue L3;
-                                }else if (c == 'N' || c == 'n'){
-                                    clearConsole();
-                                    continue L1;
-                                }
-                            }
-                        //-----------Binary to Decimal----------
-                            int decimal = 0;
-                            int base1 = 1;
-                            while(binaryNumber > 0){
-                                int rem = binaryNumber%10;
-                                decimal = decimal + rem*base1;
-                                base1 = base1*2;
-                                binaryNumber = binaryNumber/10;
-                            }
-                            System.out.println("\n\tDecimal Number: "+decimal);
-                            //-----------Binary to Octal----------
-                            int octal = 0;
-                            int base2 = 1;
-                            int temp3=decimal;
-                            while(temp3 > 0){
-                                octal = octal + (temp3%8)*base2;
-                                temp3 = temp3/8;
-                                base2 = base2*10;
-                            }
-                            System.out.println("\tOctal number: "+octal);
-                            //-----------Binary to Hexa Decimal----------
-                            int temp4=decimal;
-                            String hex = "";
-                            while(temp4 > 0){
-                                int rem = temp4%16;
-                                if(rem<10){
-                                    hex = rem + hex;
-                                }
-                                else{
-                                    hex = (char)(rem+55) + hex;
-                                }
-                                temp4 = temp4/16;
-                            }
-                            System.out.println("\tHexadecimal number: "+hex);
-                            //----back to homepage-----
-                            System.out.print("\n\nDo you want to go to homepage (Y/N)-> ");
-                            char c = input.next().charAt(0);
+    public static boolean isValidRoman(String s){
+        if (s == null || s.isEmpty()) return false;
+        for (int i=0;i<s.length();i++) {
+            char c= s.charAt(i);
+            if (c != 'I' && c != 'V' && c != 'X' && c != 'L'
+                    && c != 'C' && c != 'D' && c != 'M') {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        Scanner input = new Scanner(System.in);
+        boolean running = true;
 
-                            if (c == 'Y' || c == 'y') {
-                                clearConsole();
-                                continue L1;
-                            }else {
-                                break L1;
-                            }
-                        }while(true);
-                case 3: //Octal Converter
-                        L4:do{
-                            clearConsole();
-                            System.out.println("+-------------------------------------------+");
-                            System.out.println("|              Octal Converter              |");
-                            System.out.println("+-------------------------------------------+");
-                            System.out.print("\n\nEnter an Octal number: ");
-                            int octal = input.nextInt();
-                            int temp=octal;
-                            if(octal>=0){
-                                do{
-                                    int num=temp%10;
-                                    temp/=10;
-                                    if(num>7){
-                                        System.out.println("\tInvalid input...");
-                                        System.out.print("\nDo you want to input number again (Y/N) -> ");
-                                        char c = input.next().charAt(0);
+        System.out.println("\t\t\t\t\t __    _____             __");
+		System.out.println("\t\t\t\t\t|  \\ /      \\           |  \\");
+		System.out.println("\t\t\t\t\t \\$$|  $$$$$$\\  ______  | $$  _______");
+		System.out.println("\t\t\t\t\t|  \\| $$   \\$$ |      \\ | $$ /       \\");
+		System.out.println("\t\t\t\t\t| $$| $$        \\$$$$$$\\| $$|  $$$$$$$");
+		System.out.println("\t\t\t\t\t| $$| $$   __  /      $$| $$| $$");
+		System.out.println("\t\t\t\t\t| $$| $$__/  \\|  $$$$$$$| $$| $$_____");
+		System.out.println("\t\t\t\t\t| $$ \\$$    $$ \\$$    $$| $$ \\$$     \\");
+		System.out.println("\t\t\t\t\t \\$$  \\$$$$$$   \\$$$$$$$ \\$$  \\$$$$$$$\n");
+		
+		System.out.println("  _   _                       _                       _____                                         _");
+		System.out.println(" | \\ | |                     | |                     / ____|                                       | |");
+		System.out.println(" |  \\| |  _   _   _ __ ___   | |__    ___   _ __    | |        ___    _ __   __   __   ___   _ __  | |_   ___   _ __");
+		System.out.println(" | . ` | | | | | | '_ ` _ \\  | '_ \\  / _ \\ | '__|   | |       / _ \\  | '  \\  \\ \\ / /  / _ \\ | '__| | __| / _ \\ | '__|");
+		System.out.println(" | |\\  | | |_| | | | | | | | | |_) ||  __/ | |      | |____  | (_) | | | | |  \\ V /  |  __/ | |    | |_ |  __/ | |");
+		System.out.println(" |_| \\_|  \\__,_| |_| |_| |_| |_.__/  \\___| |_|       \\_____|  \\___/  |_| |_|   \\_/    \\___| |_|     \\__| \\___| |_|");
+		System.out.println("\n======================================================================================================================");
+		System.out.println("\n");
+		
+		System.out.println("\t[01] Decimal Converter \n");
+		System.out.println("\t[02] Binary Converter \n");
+		System.out.println("\t[03] Octal Converter \n");
+		System.out.println("\t[04] Hexadecimal Converter \n");
+		System.out.println("\t[05] Roman Number Converter \n");
+		
+		System.out.print("Enter Option >");
+		int selec = input.nextInt();
 
-                                        if (c == 'Y' || c == 'y') {
-                                            clearConsole();
-                                            continue L4;
-                                        }else if (c == 'N' || c == 'n'){
-                                            clearConsole();
-                                            continue L1;
-                                        }
-                                    }
-                                }while(temp>0);
-                            }else{
-                                System.out.println("\tInvalid input...");
-                                System.out.print("\nDo you want to input number again (Y/N) -> ");
-                                char c = input.next().charAt(0);
+             switch (selec){
+                case 1:{
+                    boolean validInput = false;
+                    while (!validInput){
+                        System.out.println();
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println("|            Decimal Converter            |");
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println();
+                        System.out.print("Enter an Decimal number: ");
+                        String decStr = input.next();
 
-                                if (c == 'Y' || c == 'y') {
-                                    clearConsole();
-                                    continue L4;
-                                }else if (c == 'N' || c == 'n'){
-                                    clearConsole();
-                                    continue L1;
-                                }
-                            }
-                        //-----------Octal to Decimal----------
-                            int decimal = 0;
-                            int base = 1;
-                            while(octal > 0){
-                                int rem = octal%10;
-                                decimal = decimal + rem*base;
-                                base = base*8;
-                                octal = octal/10;
-                            }
-                            System.out.println("\n\tDecimal Number: "+decimal);
-                        //-----------Octal to Binary----------
-                            
-                            int temp2 = decimal;
-                            String binary = "";
-                            while (temp2 > 0) {
-                                int remainder = temp2 % 2;
-                                binary = remainder + binary;
-                                temp2 /= 2;
-                            }
-                            System.out.println("\tBinary Number: " + binary);
-                        //-----------Octal to Hexa Decimal----------
-                            String hex = "";
-                            while(decimal > 0){
-                                int rem = decimal%16;
-                                if(rem<10){
-                                    hex = rem + hex;
-                                }
-                                else{
-                                    hex = (char)(rem+55) + hex;
-                                }
-                                decimal = decimal/16;
-                            }
-                            System.out.println("\tHexadecimal Number: "+hex);
+                        if (!isValidDecimal(decStr)){
+                            System.out.println("\tInvalid input...");
+                            System.out.print("\nDo you want to input number again (Y/N) -> ");
+                            char retry = input.next().charAt(0);
+                            if (retry == 'Y' || retry == 'y') continue;
+                            else break;
+                        }
 
-                            //----back to homepage-----
-                            System.out.print("\n\nDo you want to go to homepage (Y/N)-> ");
-                            char c = input.next().charAt(0);
+                        validInput = true;
+                        int dec = Integer.parseInt(decStr);
 
-                            if (c == 'Y' || c == 'y') {
-                                clearConsole();
-                                continue L1;
-                            }else {
-                                break L1;
-                            }
-                        }while(true);
-                case 4: //HexaDecimal Converter
-                        
-                            clearConsole();
-                            System.out.println("+-------------------------------------------+");
-                            System.out.println("|            HexaDecimal Converter          |");
-                            System.out.println("+-------------------------------------------+");
-                            System.out.print("\n\nEnter an HexaDecimal number : ");
-                            String hex = System.console().readLine();
-                            
-                            
-                        L5:do{
-                            //-----------HexaDecimal to Decimal----------
-                            int decimal = 0;
-                            for (int i = hex.length()-1, j = 0; i >= 0; i--, j++) {
-                                char c = hex.charAt(i);
-                                int digit = 0;
-                                if (c >= '0' && c <= '9') {
-                                    digit = c - '0';
-                                } else if (c >= 'A' && c <= 'F') {
-                                    digit = c - 'A' + 10;
-                                } else if (c >= 'a' && c <= 'f') {
-                                    digit = c - 'a' + 10;
-                                }
-                                decimal += digit * Math.pow(16, j);
-                            }
-                            System.out.println("\n\tDecimal Number: " + decimal);  
-                            //-----------HexaDecimal to Binary----------
-                                int temp2 = decimal;
-                                String binary = "";
-                                while (temp2 > 0) {
-                                    int remainder = temp2 % 2;
-                                    binary = remainder + binary;
-                                    temp2 /= 2;
-                                }
-                                System.out.println("\tBinary Number: " + binary);
-                            //-----------HexaDecimal to Octal----------
-                                int temp3 = decimal;
-                                String octal = "";
-                                while (temp3 > 0) {
-                                    int remainder = temp3 % 8;
-                                    octal = remainder + octal;
-                                    temp3 /= 8;
-                                }
-                                System.out.println("\tOctal Number: " + octal);
+                        System.out.println();
+                        System.out.println("\t\tBinary number: " + decimalToBinary(dec));
+                        System.out.println("\t\tOctal number: " + decimalToOctal(dec));
+                        System.out.println("\t\tHexadecimal number: " + decimalToHex(dec));
+                        System.out.println();
+                    }
+                    break;
+                }
 
-                                //----back to homepage-----
-                                System.out.print("\n\nDo you want to go to homepage (Y/N)-> ");
-                                char c = input.next().charAt(0);
+                case 2: {
+                    boolean validInput = false;
+                    while (!validInput){
+                        System.out.println();
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println("|             Binary Converter            |");
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println();
+                        System.out.print("Enter an Binary number: ");
+                        String binary = input.next();
 
-                                if (c == 'Y' || c == 'y') {
-                                    clearConsole();
-                                    continue L1;
-                                }else {
-                                    break L1;
+                        if (!isValidBinary(binary)){
+                            System.out.println("\tInvalid input...");
+                            System.out.print("\nDo you want to input number again (Y/N) -> ");
+                            char retry = input.next().charAt(0);
+                            if (retry == 'Y' || retry == 'y') continue;
+                            else break;
+                        }
+
+                        validInput = true;
+                        int dec = binaryToDecimal(binary);
+
+                        System.out.println();
+                        System.out.println("\t\tDecimal Number: "+dec);
+                        System.out.println("\t\tOctal number: "+decimalToOctal(dec));
+                        System.out.println("\t\tHexadecimal number: "+decimalToHex(dec));
+                        System.out.println();
+                    }
+                    break;
+                }
+
+                case 3: {
+                    boolean validInput = false;
+                    while (!validInput){
+                        System.out.println();
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println("|              Octal Converter            |");
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println();
+                        System.out.print("Enter an Octal number: ");
+                        String octalc = input.next();
+
+                        if (!isValidOctal(octalc)){
+                            System.out.println("\tInvalid input...");
+                            System.out.print("\nDo you want to input number again (Y/N) -> ");
+                            char retry = input.next().charAt(0);
+                            if (retry == 'Y' || retry == 'y') continue;
+                            else break;
+                        }
+
+                        validInput = true;
+                        int dec = octalToDecimal(octalc);
+
+                        System.out.println();
+                        System.out.println("\t\tDecimal Number: " + dec);
+                        System.out.println("\t\tBinary Number: " + decimalToBinary(dec));
+                        System.out.println("\t\tHexadecimal Number: " + decimalToHex(dec));
+                        System.out.println();
+                    }
+                    break;
+                }
+
+                case 4: {
+                    boolean validInput = false;
+                    while (!validInput){
+                        System.out.println();
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println("|        HexaDecimal Converter            |");
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println();
+                        System.out.print("Enter an HexaDecimal number: ");
+                        String hex = input.next();
+
+                        if (!isValidHex(hex)) {
+                            System.out.println("\tInvalid input...");
+                            System.out.print("\nDo you want to input number again (Y/N) -> ");
+                            char retry = input.next().charAt(0);
+                            if (retry == 'Y' || retry == 'y') continue;
+                            else break;
+                        }
+
+                        validInput = true;
+                        int dec = hexToDecimal(hex);
+
+                        System.out.println();
+                        System.out.println("\t\tDecimal Number: " + dec);
+                        System.out.println("\t\tBinary Number: " + decimalToBinary(dec));
+                        System.out.println("\t\tOctal Number: " + decimalToOctal(dec));
+                        System.out.println();
+                    }
+                    break;
+                }
+
+                case 5: {
+                    System.out.println("+------------------------------------------------------------------------------+");
+                    System.out.println("|                       Roman Number Converter                                 |");
+                    System.out.println("+------------------------------------------------------------------------------+");
+                    System.out.println();
+                    System.out.println("       [01] Decimal Number to Roman Number Converter");
+                    System.out.println();
+                    System.out.println("       [02] Roman Number to Decimal Number Converter");
+                    System.out.println();
+                    System.out.print("Enter an option: ");
+                    int romanOption = input.nextInt();
+
+                    switch (romanOption){
+                        case 1:{
+                            boolean validInput = false;
+                            while (!validInput) {
+                                System.out.println();
+                                System.out.println("+------------------------------------------------------------------------------+");
+                                System.out.println("|               Decimal Number to Roman Number Converter                       |");
+                                System.out.println("+------------------------------------------------------------------------------+");
+                                System.out.println();
+                                System.out.print("Enter an Decimal number: ");
+                                String decStr = input.next();
+
+                                int decimal = 0;
+                                boolean isValid = isValidDecimal(decStr);
+                                if (isValid) decimal = Integer.parseInt(decStr);
+
+                                if (!isValid || decimal <= 0 || decimal > 3999){
+                                    System.out.println("\tInvalid input...");
+                                    System.out.print("\nDo you want to input number again (Y/N) -> ");
+                                    char retry = input.next().charAt(0);
+                                    if (retry == 'Y' || retry == 'y') continue;
+                                    else break;
                                 }
 
-                        }while (true); 
-                            
-                        
-                    
-                case 5: //Roman Converter
-                        clearConsole();
-                        System.out.println("+--------------------------------------------------------------+");
-                        System.out.println("|                     Roman Number Converter                   |");
-                        System.out.println("+--------------------------------------------------------------+");
-                        System.out.println("\n\n\t[01] Decimal Number to Roman Number Converter");
-                        System.out.println("\n\t[02] Roman Number to Decimal Number Converter");
-                        System.out.print("\n\nEnter an option -> ");
-                        int option2=input.nextInt();
-                        switch(option2){
-                            case 1: //decimal to roman
-                                    L6:do{
-                                        clearConsole();
-                                        System.out.println("+------------------------------------------------------------------+");
-                                        System.out.println("|            Decimal Number to Roman Number Converter              |");
-                                        System.out.println("+------------------------------------------------------------------+");
-                                        System.out.print("\n\nEnter an Decimal number: ");
-                                        int num = input.nextInt();
-                                        if(num>=0){
-                                            String roman = "";
+                                validInput = true;
+                                System.out.println();
+                                System.out.println("\t\tRoman numeral: " + decimalToRoman(decimal));
+                                System.out.println();
+                            }
+                            break;
+                        }
 
-                                            while (num >= 1000) {
-                                                roman += "M";
-                                                num -= 1000;
-                                            }
-                                            while (num >= 900) {
-                                                roman += "CM";
-                                                num -= 900;
-                                            }
-                                            while (num >= 500) {
-                                                roman += "D";
-                                                num -= 500;
-                                            }
-                                            while (num >= 400) {
-                                                roman += "CD";
-                                                num -= 400;
-                                            }
-                                            while (num >= 100) {
-                                                roman += "C";
-                                                num -= 100;
-                                            }
-                                            while (num >= 90) {
-                                                roman += "XC";
-                                                num -= 90;
-                                            }
-                                            while (num >= 50) {
-                                                roman += "L";
-                                                num -= 50;
-                                            }
-                                            while (num >= 40) {
-                                                roman += "XL";
-                                                num -= 40;
-                                            }
-                                            while (num >= 10) {
-                                                roman += "X";
-                                                num -= 10;
-                                            }
-                                            while (num >= 9) {
-                                                roman += "IX";
-                                                num -= 9;
-                                            }
-                                            while (num >= 5) {
-                                                roman += "V";
-                                                num -= 5;
-                                            }
-                                            while (num >= 4) {
-                                                roman += "IV";
-                                                num -= 4;
-                                            }
-                                            while (num >= 1) {
-                                                roman += "I";
-                                                num -= 1;
-                                            }
+                        case 2: {
+                            boolean validInput = false;
+                            while (!validInput) {
+                                System.out.println();
+                                System.out.println("+------------------------------------------------------------------------------+");
+                                System.out.println("|               Roman Number to Decimal Number Converter                       |");
+                                System.out.println("+------------------------------------------------------------------------------+");
+                                System.out.println();
+                                System.out.print("Enter an Roman number: ");
+                                String romanNum = input.next().toUpperCase();
 
-                                            System.out.println("\n\tRoman numeral: " + roman);
-                                            //----back to homepage-----
-                                            System.out.print("\n\nDo you want to go to homepage (Y/N)-> ");
-                                            char c = input.next().charAt(0);
+                                if (!isValidRoman(romanNum)){
+                                    System.out.println("\tInvalid input...");
+                                    System.out.print("\nDo you want to input number again (Y/N) -> ");
+                                    char retry = input.next().charAt(0);
+                                    if (retry == 'Y' || retry == 'y') continue;
+                                    else break;
+                                }
 
-                                            if (c == 'Y' || c == 'y') {
-                                                clearConsole();
-                                                continue L1;
-                                            }else {
-                                                break L1;
-                                            }
-                                        }else{
-                                            System.out.println("\tInvalid input...");
-                                            System.out.println("\nDo you want to input number again (Y/N) -> ");
-                                            String i=input.nextLine();
-                                            if(i.equalsIgnoreCase("Y")){
-                                                clearConsole();
-                                                continue L6;
-                                            }else if(i.equalsIgnoreCase("N")){
-                                                clearConsole();
-                                                continue L1;
-                                            }
-                                        }
-                                    }while(true);
-                            case 2: //roman to decimal
-                                    clearConsole();
-                                    System.out.println("+------------------------------------------------------------------+");
-                                    System.out.println("|            Roman Number to Decimal Number Converter              |");
-                                    System.out.println("+------------------------------------------------------------------+");
-                                    System.out.print("\n\nEnter an Roman number: ");
-                                    String roman = System.console().readLine();
-                                    int decimal = 0; 
-                                    for (int i = 0; i < roman.length(); i++) {
-                                        char ch = roman.charAt(i);
-                                        switch (ch) {
-                                            case 'M':
-                                                decimal += 1000;
-                                                break;
-                                            case 'D':
-                                                decimal += 500;
-                                                break;
-                                            case 'C':
-                                                if (i < roman.length() - 1 && (roman.charAt(i+1) == 'D' || roman.charAt(i+1) == 'M')) {
-                                                    decimal -= 100;
-                                                } else {
-                                                    decimal += 100;
-                                                }
-                                                break;
-                                            case 'L':
-                                                decimal += 50;
-                                                break;
-                                            case 'X':
-                                                if (i < roman.length() - 1 && (roman.charAt(i+1) == 'L' || roman.charAt(i+1) == 'C' || roman.charAt(i+1) == 'M')) {
-                                                    decimal -= 10;
-                                                } else {
-                                                    decimal += 10;
-                                                }
-                                                break;
-                                            case 'V':
-                                                decimal += 5;
-                                                break;
-                                            case 'I':
-                                                if (i < roman.length() - 1 && (roman.charAt(i+1) == 'V' || roman.charAt(i+1) == 'X' || roman.charAt(i+1) == 'L' || roman.charAt(i+1) == 'C' || roman.charAt(i+1) == 'D' || roman.charAt(i+1) == 'M')) {
-                                                    decimal -= 1;
-                                                } else {
-                                                    decimal += 1;
-                                                }
-                                                break;
-                                            default:
-                                                System.out.println("Invalid Roman numeral!");
-                                                return;
-                                        }
-                                    }
+                                validInput = true;
+                                System.out.println();
+                                System.out.println("\t\tDecimal number: " + romanToDecimal(romanNum));
+                                System.out.println();
+                            }
+                            break;
+                        }
 
-                                    System.out.println("\n\tDecimal number: " + decimal);
+                        default:
+                            System.out.println("\nInvalid option...");
+                    }
+                    break;
+                }
 
-                                    //----back to homepage-----
-                                    System.out.print("\n\nDo you want to go to homepage (Y/N)-> ");
-                                    char c = input.next().charAt(0);
-
-                                    if (c == 'Y' || c == 'y') {
-                                        clearConsole();
-                                        continue L1;
-                                    }else {
-                                        break L1;
-                                    }
-                                        }
-                default: continue L1; 
+                default:
+                    System.out.println("\nInvalid Option...");
             }
 
-        }while(true);
+            System.out.println();
+            System.out.print("Do you want to go to homepage (Y/N)-> ");
+            char homePage = input.next().charAt(0);
+            if (homePage == 'Y' || homePage =='y'){
+                for (int i=0;i<50; i++){
+                    System.out.println();
+                }
+            } else{
+                running = false;
+                System.out.println("\nProgramme is close__");
+            }
+        }
     }
-}
