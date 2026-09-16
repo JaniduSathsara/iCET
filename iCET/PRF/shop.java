@@ -1,0 +1,213 @@
+import java.util.*;
+class shop{
+	public static void main(String args[]){
+
+		// banner
+
+		System.out.println("================================================================================");
+		System.out.println("__          __  _                            _          _ __  __            _");
+		System.out.println("\\ \\        / / | |                          | |        (_)  \\/  |          | |");
+		System.out.println(" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___  | |_ ___    _| \\  / | __ _ _ __| |_");
+		System.out.println("  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\  | | |\\/| |/ _` | '__| __|");
+		System.out.println("   \\  /\\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | | |  | | (_) | |  | |_");
+		System.out.println("    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/  |_|_|  |_|\\__,_|_|   \\__|");
+		System.out.println("                                                                                ");
+		System.out.println("================================================================================");
+		System.out.println(" ");
+		Scanner input=new Scanner(System.in);
+		System.out.print("Enter Customer Phone Number - ");
+		String x=input.next();
+		System.out.println(" ");
+		System.out.print("Enter Customer Name         - ");
+		String y=input.next();
+		System.out.println(" ");
+		System.out.println(" ");
+		System.out.println("================================================================================");
+		System.out.println(" ");
+		System.out.print("basmathi Qty(Kg) - ");
+		int b=input.nextInt();
+		System.out.println(" ");
+		System.out.print("Dahl Qty(Kg)     - ");
+		int d=input.nextInt();
+		System.out.println(" ");
+		System.out.print("Sugar Qty(Kg)    - ");
+		int s=input.nextInt();
+		System.out.println(" ");
+		System.out.print("Higland Qty      - ");
+		int h=input.nextInt();
+		System.out.println(" ");
+		System.out.print("Yoghurt Qty      - ");
+		int u=input.nextInt();
+		System.out.println(" ");
+		System.out.print("Flour Qty(Kg)    - ");
+		int f=input.nextInt();
+		System.out.println(" ");
+		System.out.print("Soap Qty         - ");
+		int o=input.nextInt();
+		System.out.println(" ");
+		double B=250.0;
+		double D=180.0;
+		double S=150.0;
+		double H=1200.0;
+		double U=50.0;
+		double F=120.0;
+		double O=160.0;
+		double totalBasmathi = B*b;
+		double totalDhal     = D*d;
+		double totalSugar    = S*s;
+		double totalHighland = H*h;
+		double totalYoghurt  = U*u;
+		double totalFlour    = F*f;
+		double totalSoap     = S*s;
+		double totalAmount = totalBasmathi + totalDhal + totalSugar + totalHighland + totalYoghurt + totalFlour + totalSoap;
+		double discount    = totalAmount * 0.10; // 10% discount+
+		double finalPrice  = totalAmount - discount;
+	
+		//  BILL
+        
+        String divider    = "+---------------------------------------------------------+";
+        String divider2   = "+-----------------------+-------+------------+------------+";
+        String divider3   = "+-------------------------------+------------+------------+";
+        String partialDiv = "+                       +--------------------+------------+";
+
+        // IMART 
+        System.out.println(divider);
+        System.out.println("|             _    __  __         ____ _________          |");  
+        System.out.println("|            (_)  |  \\/  |   /\\   |  __\\___   ___|        |");
+        System.out.println("|             _   | \\  / |  /  \\  | |__) | | |            |"); 
+        System.out.println("|            | |  | |\\/| | / /\\ \\ |  _  /  | |            |");
+        System.out.println("|            | |  | |  | |/ ____ \\| | \\ \\  | |            |");
+        System.out.println("|            |_|  |_|  |_/_/    \\_\\_|  \\_\\ |_|            |");
+        System.out.println("|                 225,Galle Road,Panadura.                |");
+        System.out.println("|                                                         |");    
+        System.out.println(divider);
+        
+        // Customer
+        System.out.printf("|                       # Tel  : %-25s|\n", x);
+        System.out.printf("|                       # Name : %-25s|\n", y);
+        System.out.println(divider2);
+       
+        System.out.printf("| %-21s | %5s | %10s | %10s |\n", "", "Qty", "unit price", "Price");
+        System.out.println(divider2);
+        
+        // Items  
+        String itemRowFormat = "| # %-19s | %5d | %10.1f | %10.1f |\n";
+        
+        System.out.printf(itemRowFormat, "Basmathi", b,B, totalBasmathi);
+        System.out.printf(itemRowFormat, "Dhal", d, D, totalDhal);
+        System.out.printf(itemRowFormat, "Suger", s, S, totalSugar); 
+        System.out.printf(itemRowFormat, "Highland", h,H, totalHighland);
+        System.out.printf(itemRowFormat, "Yoghurt", u, U, totalYoghurt);
+        System.out.printf(itemRowFormat, "flour", f, F, totalFlour);
+        System.out.printf(itemRowFormat, "Soap", o, O, totalSoap);
+        System.out.println(divider2);
+        
+        //  Totals 
+        String totalRowFormat = "|                       | %-18s | %10.1f |\n";
+        
+        System.out.printf(totalRowFormat, "Total", totalAmount);
+        System.out.println(partialDiv);
+        System.out.printf(totalRowFormat, "discount(10%)", discount);
+        System.out.println(partialDiv);
+        System.out.printf(totalRowFormat, "Price", finalPrice);
+        System.out.println(divider3);
+        
+        System.out.println('\n');
+		
+		System.out.print("Enter Cash Amount : ");
+		double cash = input.nextDouble();
+		
+		int change = (int) (cash - finalPrice);
+		
+		System.out.println("+----------------+------------------+");
+		System.out.printf ("|   %-13s|     %-13.2f|\n","Amount", finalPrice);
+		System.out.println("+----------------+------------------+");
+		System.out.printf ("|   %-13s|     %-13.2f|\n","Cash", cash);
+		System.out.println("+----------------+------------------+");
+		System.out.printf ("|   %-13s|     %-13d|\n","Change", change);
+		System.out.println("+----------------+------------------+");
+		
+		System.out.println('\n');
+
+		// calcutaion (module and divide)
+		
+		int rs5000 = change / 5000; 
+		change = change % 5000; 
+		
+		int rs2000 = change / 2000; 
+		change = change % 2000; 
+
+		int rs1000 = change / 1000; 
+		change = change % 1000; 
+		
+		int rs500 = change / 500; 
+		change = change % 500; 
+		
+		int rs100 = change / 100; 
+		change = change % 100; 
+		
+		int rs50 = change / 50; 
+		change = change % 50; 
+		
+		int rs20 = change / 20;
+		change = change % 20; 
+		
+		int rs10 = change / 10; 
+		change = change % 10; 
+		
+		int rs5 = change / 5; 
+		change = change % 5; 
+		
+		int rs2 = change / 2; 
+		change = change % 2; 
+		
+		int rs1 = change / 1; 
+		change = change % 1; 
+		
+		int numofcoins = rs10 + rs5 + rs2 + rs1;
+		int numofnotes = rs5000 + rs2000 + rs1000 + rs500 + rs100 + rs50 + rs20 ; 
+		
+		
+		
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4s     |\n","Value", "no");
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.5000", rs5000);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.2000", rs2000);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.1000", rs1000);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.500", rs500);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.100", rs100);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.50", rs50);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.20", rs20);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.10", rs10);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.5", rs5);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.2", rs2);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s     | %4d     |\n","Rs.1", rs1);
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s  | %4d     |\n","No of notes",numofnotes );
+		System.out.println("+-------------+----------+");
+		System.out.printf ("|%8s  | %4d     |\n","No of coins",numofcoins );
+		System.out.println("+-------------+----------+");
+
+		System.out.println('\n');
+		System.out.println("----------------------------------------------");
+		System.out.println("       THANK YOU FOR SHOPPING WITH US         ");
+		System.out.println("----------------------------------------------");
+		
+		
+	}
+}
+
+
+  
+
